@@ -1,0 +1,177 @@
+.navigation {
+    &__checkbox {
+        display: none;
+    }
+
+    &__button {
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        width: 7rem;
+        height: 7rem;
+        text-align: center;
+        background: $color-white;
+        border-radius: 50%;
+        box-shadow: 0 1rem 3rem rgba($color: $color-black, $alpha: .1);
+        cursor: pointer;
+        z-index: 2000;
+
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+    }
+
+    &__background {
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+        transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1);
+
+        // transform: scale(80);
+
+        @include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+        }
+        
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+    }
+
+    &__nav {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: -20rem;
+        z-index: 1500;
+
+        // Чтобы нав было не видно, недостаточно только opacity: 
+        width: 0;
+        opacity: 0;
+        transition: all .8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+
+    &__list {
+        width: 100%;
+        list-style: none;
+        text-align: center;
+        @include centered;
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 3rem;
+            font-weight: 300;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+
+            // Animation
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            background-size: 220%;
+            transition: all .4s;
+
+            span {
+                display: inline-block;
+                margin-right: 1.5rem;
+            }
+        }
+
+        &:hover,
+        &:active {
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+
+
+    }
+
+
+    // Functionality 
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        width: 100%;
+        left: 0;
+        opacity: 1;
+    }
+
+
+    // Icon
+    &__icon {
+        position: relative;
+        margin-top: 3.4rem;
+
+        &,
+        &::before,
+        &::after {
+            display: inline-block;
+            width: 3rem;
+            height: 2px;
+            background: $color-grey-dark-3;
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+            left: 0;
+            transition: all .3s;
+        }
+
+        &::before { top: -.8rem; }
+        &::after { top: .8rem; }
+
+        &:focus-visible {
+            outline: 0;
+        }
+
+    }
+
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+
+    // Анимация бургера при клике
+    &__checkbox:checked + &__button &__icon {
+        background: transparent;
+    }
+    
+    &__checkbox:checked + &__button &__icon::before {
+        transform: rotate(135deg);
+        top: 0;
+    }
+    
+    &__checkbox:checked + &__button &__icon::after {
+        transform: rotate(-135deg);
+        top: 0;
+    }
+}
