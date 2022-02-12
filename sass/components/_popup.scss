@@ -10,6 +10,13 @@
     visibility: hidden;
     transition: all .3s;
 
+    // blur:
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color: $color-black, $alpha: .3);
+    }
+
     &__content {
         @include centered;
         width: 75%;
